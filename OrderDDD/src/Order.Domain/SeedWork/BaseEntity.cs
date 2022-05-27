@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,15 @@ namespace Order.Domain.SeedWork
     public abstract class BaseEntity
     {
         public int Id { get; set; }
+
+        private ICollection<INotification> _domainEvents;
+        public ICollection<INotification> domainEvents => _domainEvents;
+
+        public void AddDomainEvents(INotification notification)
+        {
+            _domainEvents ??= new List<INotification>();
+            _domainEvents.Add(notification);
+        }
+
     }
 }
